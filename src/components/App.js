@@ -1,6 +1,7 @@
 import React from "react";
 
 import Accordion from "./Accordion";
+import "./style.css";
 
 const items = [
   {
