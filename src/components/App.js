@@ -1,6 +1,7 @@
 import React from "react";
 
 import Accordion from "./Accordion";
+import Exercise from "./Exercise";
 import "./style.css";
 
 const items = [
@@ -18,10 +19,22 @@ const items = [
   },
 ];
 
+// PROJECT
+
+// export default () => {
+//   return (
+//     <div className="smooth">
+//       <Accordion items={items} />
+//     </div>
+//   );
+// };
+
+// EXERCISE
+
 export default () => {
   return (
     <div>
-      <Accordion items={items} />
+      <Exercise />
     </div>
   );
 };

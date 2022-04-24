@@ -1,3 +1,3 @@
-.hidden {
-    display: none;
+.smooth {
+  transition: all 0.3s;
 }
