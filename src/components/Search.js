@@ -10,8 +10,6 @@ const Search = () => {
   //  console.log('am getting better and better at react')
   //  })
 
-  console.log(termResults);
-
   // THE RECOMENDED WAY OF WORKING WITH PROMISES INSIDE A useEffect method
   useEffect(() => {
     const searchWiki = async () => {
@@ -29,11 +27,37 @@ const Search = () => {
     };
 
     // calling the asunc method
-    if (term) searchWiki();
+    const timeoutId = setTimeout(() => {
+      if (term) searchWiki();
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+    //
   }, [term]);
 
   const onSearchChange = (e) => {
     setTerm(e.target.value);
+  };
+
+  const renderResults = function () {
+    return termResults.map(({ pageid, title, snippet }) => {
+      return (
+        <div className="item" key={pageid}>
+          <div className="right floated content">
+            <a
+              className="ui button"
+              href={`https://en.wikipedia.org?curid=${pageid}`}
+            >
+              Go
+            </a>
+          </div>
+          <div className="content">
+            <div className="header">{title}</div>
+            <span dangerouslySetInnerHTML={{ __html: snippet }}></span>
+          </div>
+        </div>
+      );
+    });
   };
 
   return (
@@ -41,6 +65,7 @@ const Search = () => {
       <div className="ui form">
         <div className="field">
           <label>Enter the search term</label>
+
           <input
             className="input"
             onChange={onSearchChange}
@@ -49,6 +74,8 @@ const Search = () => {
           />
         </div>
       </div>
+
+      <div className="ui celled list">{renderResults()}</div>
     </div>
   );
 };
