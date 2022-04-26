@@ -3,18 +3,20 @@ import React, { useState, useEffect } from "react";
 
 const Search = () => {
   const [term, setTerm] = useState("");
-  const [termResults, setTermResults] = useEffect(null);
+  const [termResults, setTermResults] = useState([]);
 
   // using ASYNC annotation directly in the call back function is =NOT ALLOWED in useEffect method
   //  useEffect(async () => {
   //  console.log('am getting better and better at react')
   //  })
 
+  console.log(termResults);
+
   // THE RECOMENDED WAY OF WORKING WITH PROMISES INSIDE A useEffect method
   useEffect(() => {
     const searchWiki = async () => {
       // creating the a sync fun inside the call back function of useEffect
-      const resData = await axios("https://en.wikipedia.org/w/api.php", {
+      const { data } = await axios("https://en.wikipedia.org/w/api.php", {
         params: {
           action: "query",
           list: "search",
@@ -23,10 +25,11 @@ const Search = () => {
           srsearch: term,
         },
       });
-      console.log(resData);
+      setTermResults(data.query.search);
     };
 
-    searchWiki();
+    // calling the asunc method
+    if (term) searchWiki();
   }, [term]);
 
   const onSearchChange = (e) => {
