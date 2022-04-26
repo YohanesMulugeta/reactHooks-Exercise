@@ -10,6 +10,9 @@ const Search = () => {
   //  console.log('am getting better and better at react')
   //  })
 
+  //////////////////////////////////////////////////////////// USE EFFECT
+  ///////////////////////////////////////////////////////////
+
   // THE RECOMENDED WAY OF WORKING WITH PROMISES INSIDE A useEffect method
   useEffect(() => {
     const searchWiki = async () => {
@@ -26,18 +29,31 @@ const Search = () => {
       setTermResults(data.query.search);
     };
 
-    // calling the asunc method
-    const timeoutId = setTimeout(() => {
-      if (term) searchWiki();
-    }, 1000);
+    if (term && termResults.length) {
+      searchWiki();
+    } else {
+      ////////////////////////////////// setting the time out function
+      /////////////////////////////////
+      const timeoutId = setTimeout(() => {
+        if (term) searchWiki();
+      }, 1000);
 
-    return () => clearTimeout(timeoutId);
-    //
+      /////////////////////////////// returning a call back function from a useEffect function
+      ///////////////////////////////
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
   }, [term]);
 
+  ///////////////////////////////////////////////////////// ONCHANGE EVENT HANDLER
+  ////////////////////////////////////////////////////////
   const onSearchChange = (e) => {
     setTerm(e.target.value);
   };
+
+  ///////////////////////////////////////////////////////// RENDERED RESULTS
+  ////////////////////////////////////////////////////////
 
   const renderResults = function () {
     return termResults.map(({ pageid, title, snippet }) => {
@@ -59,6 +75,9 @@ const Search = () => {
       );
     });
   };
+
+  /////////////////////////////////////////////////// THE RETURN VALUE
+  //////////////////////////////////////////////////
 
   return (
     <div>
