@@ -1,7 +1,5 @@
 import React, { useState } from "react"; // useStaet gives us access to use a state in our functional component
 
-import "./style.css";
-
 const Accordion = ({ items }) => {
   // this is the same as props.items
   const [activeIndex, setActiveIndex] = useState(null); // this is the initialization of the state in fnctional components that is setActiveIndex will be the method we will be using to set the active index

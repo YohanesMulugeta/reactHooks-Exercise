@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Accordion from "./Accordion";
 import Exercise from "./Exercise";
 import Search from "./Search";
-import "./style.css";
+import DropDown from "./DropDown";
 
 const items = [
   {
@@ -20,13 +20,26 @@ const items = [
   },
 ];
 
+const options = [
+  { label: "The Color Red", value: "red" },
+  { label: "The Color Green", value: "green" },
+  { label: "The Color Blue", value: "blue" },
+];
+
 // PROJECT
 
 export default () => {
+  const [selected, setSelected] = useState(options[0]);
+
   return (
     <div className="smooth">
       {/* <Accordion items={items} /> */}
-      <Search />
+      {/* <Search /> */}
+      <DropDown
+        options={options}
+        selected={selected}
+        onSelectedChange={setSelected}
+      />
     </div>
   );
 };
