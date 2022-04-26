@@ -2,6 +2,7 @@ import React from "react";
 
 import Accordion from "./Accordion";
 import Exercise from "./Exercise";
+import Search from "./Search";
 import "./style.css";
 
 const items = [
@@ -21,20 +22,21 @@ const items = [
 
 // PROJECT
 
-// export default () => {
-//   return (
-//     <div className="smooth">
-//       <Accordion items={items} />
-//     </div>
-//   );
-// };
-
-// EXERCISE
-
 export default () => {
   return (
-    <div>
-      <Exercise />
+    <div className="smooth">
+      {/* <Accordion items={items} /> */}
+      <Search />
     </div>
   );
 };
+
+// EXERCISE
+
+// export default () => {
+//   return (
+//     <div>
+//       <Exercise />
+//     </div>
+//   );
+// };
