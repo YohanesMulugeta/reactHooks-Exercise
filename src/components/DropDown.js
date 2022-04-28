@@ -7,20 +7,20 @@ export default ({ options, selected, onSelectedChange }) => {
   useEffect(() => {
     // console.log(ref.current);
 
-    document.querySelector("body").addEventListener(
-      "click",
-      function (e) {
-        // guard key that is if e.target is descendant of the ref.current this handler wont do a shit
-        if (ref.current.contains(e.target)) return;
+    const body = document.body;
+    const handler = function (e) {
+      // guard key that is if e.target is descendant of the ref.current this handler wont do a shit
+      if (ref.current.contains(e.target)) return;
 
-        setOpen(false);
-        // console.log("body clicked");
-      },
-      { capture: true }
-    );
+      setOpen(false);
+      // console.log("body clicked");
+    };
+    body.addEventListener("click", handler, { capture: true });
+
+    return () => body.removeEventListener("click", handler, true);
   }, []);
 
-  // document.querySelector("body").addEventListener("click", (e) => {
+  // document.body.addEventListener("click", (e) => {
   //   setOpen(!open);
   //   console.log(e.target);
   // });
