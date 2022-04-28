@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Accordion from "./Accordion";
 import Exercise from "./Exercise";
 import Search from "./Search";
+import Translate from "./Translate";
 import DropDown from "./DropDown";
 
 const items = [
@@ -29,14 +30,14 @@ const options = [
 // PROJECT
 
 export default () => {
-  const [selected, setSelected] = useState(options[0]);
-  const [showDropdown, setShowDropdown] = useState(true);
+  // const [selected, setSelected] = useState(options[0]);
+  // const [showDropdown, setShowDropdown] = useState(true);
 
   return (
     <div className="smooth">
       {/* <Accordion items={items} /> */}
       {/* <Search /> */}
-      <button onClick={() => setShowDropdown(!showDropdown)}>
+      {/* <button onClick={() => setShowDropdown(!showDropdown)}>
         Toggle DropDown
       </button>
       {showDropdown ? (
@@ -44,8 +45,10 @@ export default () => {
           options={options}
           selected={selected}
           onSelectedChange={setSelected}
+          label="Select a Color"
         />
-      ) : null}
+      ) : null} */}
+      <Translate />
     </div>
   );
 };

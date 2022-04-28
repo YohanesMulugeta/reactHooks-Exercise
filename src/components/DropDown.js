@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default ({ options, selected, onSelectedChange }) => {
+export default ({ options, selected, onSelectedChange, label }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
@@ -51,7 +51,7 @@ export default ({ options, selected, onSelectedChange }) => {
   return (
     <div className="ui form" ref={ref}>
       <div className="ui field">
-        <label className="label">Selection</label>
+        <label className="label">{label}</label>
         <div
           onClick={(e) => {
             // console.log("div clicked");
