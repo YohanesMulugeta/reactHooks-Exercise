@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // useStaet gives us access to use a state in our functional component
+import React, { useEffect, useState, useRef } from "react"; // useStaet gives us access to use a state in our functional component
 
 const Accordion = ({ items }) => {
   // this is the same as props.items
@@ -7,8 +7,28 @@ const Accordion = ({ items }) => {
   // useState() returns an array containing as a first value the pice of state we want to track and the second value is a Setter function that sets the first value when ever we call it with a value it updates the state and calls the render method
 
   const onTitleCllick = function (i) {
-    setActiveIndex(i);
+    if (i === activeIndex) setActiveIndex(null);
+    else setActiveIndex(i);
   };
+
+  const myRef = useRef();
+
+  useEffect(() => {
+    const body = document.body;
+    const handler = (e) => {
+      // console.log(e.target);
+      // console.log(myRef.current);
+      if (myRef.current.contains(e.target)) return;
+
+      setActiveIndex(null);
+    };
+
+    body.addEventListener("click", handler);
+
+    return () => {
+      body.removeEventListener("click", handler, false);
+    };
+  }, []);
 
   const renderItems = items.map((item, i) => {
     const active = activeIndex === i ? "active" : "";
@@ -26,9 +46,9 @@ const Accordion = ({ items }) => {
   });
 
   return (
-    <div className="ui styled accordion">
+    <div ref={myRef} className="ui styled accordion">
       {renderItems}
-      <h1>{activeIndex}</h1>
+      {/* <h1>{activeIndex}</h1> */}
     </div>
   );
 };

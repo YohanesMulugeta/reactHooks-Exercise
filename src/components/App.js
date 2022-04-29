@@ -5,6 +5,9 @@ import Exercise from "./Exercise";
 import Search from "./Search";
 import Translate from "./Translate";
 import DropDown from "./DropDown";
+import Rout from "./rout";
+
+// window.location is a js object always updated when we change or navigate around a different url
 
 const items = [
   {
@@ -30,11 +33,52 @@ const options = [
 // PROJECT
 
 export default () => {
-  // const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = useState(options[0]);
   // const [showDropdown, setShowDropdown] = useState(true);
 
+  const showAccordion = () => {
+    if (window.location.pathname === "/") return <Accordion items={items} />;
+  };
+
+  const showSearch = () => {
+    if (window.location.pathname === "/Search") return <Search />;
+  };
+
+  const showDropdown = () => {
+    if (window.location.pathname === "/DropDown")
+      return (
+        <DropDown
+          options={options}
+          selected={selected}
+          onSelectedChange={setSelected}
+          label="Select a Color"
+        />
+      );
+  };
+
+  const showTranslate = () => {
+    if (window.location.pathname === "/Translate") return <Translate />;
+  };
   return (
     <div className="smooth">
+      <Rout path="/">
+        <Accordion items={items} />
+      </Rout>
+
+      <Rout path="/DropDown">
+        <DropDown
+          options={options}
+          selected={selected}
+          onSelectedChange={setSelected}
+          label="Select a Color"
+        />
+      </Rout>
+      <Rout path="/Search">
+        <Search />
+      </Rout>
+      <Rout path="/Translate">
+        <Translate />
+      </Rout>
       {/* <Accordion items={items} /> */}
       {/* <Search /> */}
       {/* <button onClick={() => setShowDropdown(!showDropdown)}>
@@ -48,8 +92,8 @@ export default () => {
           label="Select a Color"
         />
       ) : null} */}
-      <hr />
-      <Translate />
+      {/* <hr /> */}
+      {/* <Translate /> */}
     </div>
   );
 };
