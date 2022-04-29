@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+
 import DropDown from "./DropDown";
+import Convert from "./Convert";
+
+// API KEY AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM
 
 // OPTIONS OF LANGUAGES
 
@@ -7,6 +11,7 @@ const options = [
   { label: "Afrikaans", value: "af" },
   { label: "Arabic", value: "ar" },
   { label: "Amharic", value: "am" },
+  { label: "Germany", value: "de" },
 ];
 
 //////////////////////////////////////////////////// TRANSLATE FUNCFTION
@@ -34,6 +39,11 @@ const Translate = () => {
         onSelectedChange={setLanguage}
         label="Select a Language"
       />
+
+      <hr />
+      <h3 className="ui header">Output</h3>
+
+      <Convert text={text} language={language} />
     </div>
   );
 };

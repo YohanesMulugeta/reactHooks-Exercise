@@ -48,6 +48,7 @@ export default () => {
           label="Select a Color"
         />
       ) : null} */}
+      <hr />
       <Translate />
     </div>
   );
