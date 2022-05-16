@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Search = () => {
-  const [term, setTerm] = useState("");
-  const [result, setResult] = useState("");
+  const [term, setTerm] = useState("programming");
+  const [results, setResults] = useState([]);
+
+  console.log(results);
 
   useEffect(() => {
+    // this is because in use effect we canont use an async callback instead we use an a sync function inside the call back
     const find = async () => {
-      const response = axios.get("https://en.wikipedia.org/w/api.php?", {
+      const { data } = await axios.get("https://en.wikipedia.org/w/api.php?", {
         params: {
           action: "query",
           list: "search",
@@ -17,10 +20,10 @@ const Search = () => {
         },
       });
 
-      console.log(response);
+      setResults(data.query.search);
     };
 
-    find();
+    if (term) find();
   }, [term]);
   //   console.log(term);
 
