@@ -9,6 +9,7 @@ const Dropdown = ({ options, title, selected, onSelectedChange }) => {
       // GUARD KEY
       if (ref.current.contains(e.target)) return; //========================= ref.current is where the ref attached to will be stored
 
+      console.log("clicked");
       setOpen(false);
     };
 
