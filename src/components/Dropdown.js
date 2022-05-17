@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Dropdown = ({ options, title, selected, onSelectedChange }) => {
   const [open, setOpen] = useState(false);
+  const ref = useRef();
 
   useEffect(() => {
     const handler = (e) => {
-      if (!e.target.closest(".dropi") && open) setOpen(!open);
+      // GUARD KEY
+      if (ref.current.contains(e.target)) return; //========================= ref.current is where the ref attached to will be stored
+
+      setOpen(false);
     };
 
     document.body.addEventListener("click", handler);
-
-    return () => document.body.removeEventListener("click", handler);
-  });
+  }, []);
 
   const renderedOptions = options.map((option) => {
     // KEY GUARD....
     if (option.value === selected.value) return null;
 
+    //  ================================================================= lists of OPTIONS =======================
     return (
       <div
         key={option.value}
@@ -32,13 +35,15 @@ const Dropdown = ({ options, title, selected, onSelectedChange }) => {
     );
   });
 
+  // =====================================================  DROPDOWN RENDERED RETURN =============================
+
   return (
-    <div className="ui form dropi">
+    <div className="ui form dropi" ref={ref}>
       <div className="field">
         <label className="label">{title}</label>
         <div
           onClick={() => {
-            console.log("paren");
+            // console.log("paren");
             setOpen(!open);
           }}
           className={`ui selection dropdown ${open ? "visible active" : ""}`}
