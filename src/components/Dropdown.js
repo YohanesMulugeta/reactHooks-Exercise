@@ -13,6 +13,8 @@ const Dropdown = ({ options, title, selected, onSelectedChange }) => {
     };
 
     document.body.addEventListener("click", handler);
+
+    return document.body.removeEventListener("click", handler);
   }, []);
 
   const renderedOptions = options.map((option) => {
