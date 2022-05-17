@@ -9,13 +9,15 @@ const Dropdown = ({ options, title, selected, onSelectedChange }) => {
       // GUARD KEY
       if (ref.current.contains(e.target)) return; //========================= ref.current is where the ref attached to will be stored
 
-      console.log("clicked");
+      // console.log("clicked");
       setOpen(false);
     };
 
     document.body.addEventListener("click", handler);
 
-    return document.body.removeEventListener("click", handler);
+    return () => {
+      document.body.removeEventListener("click", handler);
+    };
   }, []);
 
   const renderedOptions = options.map((option) => {
