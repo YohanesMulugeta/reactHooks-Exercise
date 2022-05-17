@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_KEY } from "./configure";
 
 const Convert = ({ language, text }) => {
+  const [translated, setTranslated] = useState("");
+
   useEffect(() => {
+    //   WORKING WITH ASYNC FUNCTIONS INSIDE A USE EFFECT
     const find = async () => {
-      const res = await axios.post(
+      const { data } = await axios.post(
         "https://translation.googleapis.com/language/translate/v2",
         {},
         {
@@ -16,16 +19,23 @@ const Convert = ({ language, text }) => {
           },
         }
       );
+      setTranslated(data.data.translations[0].translatedText);
     };
 
-    find();
+    const timeoutId = setTimeout(() => {
+      if (text) find();
+    }, 1000);
 
-    const timeoutId = setTimeout(() => {}, 1000);
-
-    return clearTimeout(timeoutId);
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [text, language]);
 
-  return <div />;
+  return (
+    <div>
+      <h3 className="ui header">{translated}</h3>
+    </div>
+  );
 };
 
 export default Convert;
