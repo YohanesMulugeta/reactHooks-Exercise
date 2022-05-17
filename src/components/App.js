@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Accordion from "./Accordion";
 import Dropdown from "./Dropdown";
+import Route from "./Route";
 import Search from "./Search";
 import Translate from "./Translate";
+import Header from "./Header";
 
 const items = [
   {
@@ -25,28 +27,28 @@ const options = [
   { label: "Shades of Blue", value: "blue" },
 ];
 
-const showAccordion = () => {
-  if (window.location.pathname === "/") return <Accordion items={items} />;
-};
+// const showAccordion = () => {
+//   if (window.location.pathname === "/") return <Accordion items={items} />;
+// };
 
-const showList = () => {
-  if (window.location.pathname === "/list") return <Search />;
-};
+// const showList = () => {
+//   if (window.location.pathname === "/list") return <Search />;
+// };
 
-const showDropdown = (selected, setSelected) => {
-  if (window.location.pathname === "/dropdown")
-    return (
-      <Dropdown
-        options={options}
-        title="Select a Color"
-        selected={selected}
-        onSelectedChange={setSelected}
-      />
-    );
-};
-const showTranslate = () => {
-  if (window.location.pathname === "/translate") return <Translate />;
-};
+// const showDropdown = (selected, setSelected) => {
+//   if (window.location.pathname === "/dropdown")
+//     return (
+//       <Dropdown
+//         options={options}
+//         title="Select a Color"
+//         selected={selected}
+//         onSelectedChange={setSelected}
+//       />
+//     );
+// };
+// const showTranslate = () => {
+//   if (window.location.pathname === "/translate") return <Translate />;
+// };
 
 const App = () => {
   const [selected, setSelected] = useState(options[0]);
@@ -54,10 +56,29 @@ const App = () => {
 
   return (
     <div className="">
-      {showAccordion()}
+      {/* {showAccordion()}
       {showDropdown(selected, setSelected)}
       {showList()}
-      {showTranslate()}
+      {showTranslate()} */}
+      <Header />
+
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
+      <Route path="/list">
+        <Search />
+      </Route>
+      <Route path="/dropdown">
+        <Dropdown
+          options={options}
+          selected={selected}
+          onSelectedChange={setSelected}
+          title="Select Color"
+        />
+      </Route>
+      <Route path="/translate">
+        <Translate />
+      </Route>
     </div>
   );
 };
