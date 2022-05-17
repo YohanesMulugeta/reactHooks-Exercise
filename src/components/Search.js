@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Search = () => {
-  const [term, setTerm] = useState("programming");
+  const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
 
-  console.log(results);
+  // console.log(results);
 
+  // =================================================================   USEEFFECT
   useEffect(() => {
     // this is because in use effect we canont use an async callback instead we use an a sync function inside the call back
     const find = async () => {
@@ -23,13 +24,32 @@ const Search = () => {
       setResults(data.query.search);
     };
 
-    if (term) find();
+    // setting the timeout before performing any search
+    const searchTimeout = setTimeout(() => {
+      if (term) find();
+      console.log(results);
+    }, 1000);
+
+    // we can only return a CALLBACK function from use effect that will be used to perform some cleanup
+    return () => {
+      clearTimeout(searchTimeout);
+    };
+    // a clean up function is called just before a useeffect being called again
   }, [term]);
   //   console.log(term);
 
+  // =========================================================    rendering RESULTS
   const renderedResults = results.map((result) => {
     return (
       <div className="item" key={result.pageid}>
+        <div className="right floated content">
+          <a
+            className="ui button"
+            href={`https://en.wikipedia.org?curid=${result.pageid}`}
+          >
+            Go
+          </a>
+        </div>
         <div className="content">
           <div className="header">{result.title}</div>
           <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
@@ -37,6 +57,8 @@ const Search = () => {
       </div>
     );
   });
+
+  // ============================================================================ renderig the SEARCH COMPONENT
 
   return (
     <div>
